@@ -6,7 +6,6 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 
-from tgbot.config import load_config
 from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
 from tgbot.middlewares.config import ConfigMiddleware
@@ -39,9 +38,10 @@ def register_logger():
 
 
 async def main():
+    from tgbot.config import config
+
     register_logger()
 
-    config = load_config(".env")
     if config.tg_bot.use_mongo_storage:
         storage = MongoStorage(uri='mongodb://127.0.0.1:27017/',
                                database='FSM_states',

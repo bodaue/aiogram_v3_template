@@ -7,10 +7,10 @@ from tgbot.filters.admin import AdminFilter
 
 admin_router = Router()
 admin_router.message.filter(AdminFilter(), F.chat.type == "private")
-
-mediagroups = {}
+admin_router.callback_query.filter(AdminFilter(), F.message.chat.type == 'private')
 
 
 @admin_router.message(Command(commands='test'))
 async def process_test(message: Message, state: FSMContext):
-    pass
+    print(message)
+    await state.clear()

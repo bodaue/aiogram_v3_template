@@ -6,9 +6,7 @@ from environs import Env
 @dataclass
 class DbConfig:
     host: str
-    password: str
-    user: str
-    database: str
+    name: str
     port: int = 27017
 
 
@@ -39,5 +37,13 @@ def load_config(path: str = None) -> Config:
         tg_bot=TgBot(
             token=env.str("BOT_TOKEN"),
             admin_ids=env.list('ADMINS', subcast=int),
-            use_mongo_storage=env.bool("USE_MONGO_STORAGE")
+            use_mongo_storage=env.bool("USE_MONGO_STORAGE"),
+        ),
+        db=DbConfig(
+            name=env.str('DB_NAME'),
+            host=env.str('DB_HOST'),
+            port=env.int('DB_PORT')
         ))
+
+
+config = load_config()
