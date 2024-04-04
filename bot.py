@@ -3,14 +3,15 @@ import logging
 
 import betterlogging as bl
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 
+from tgbot.config import config
 from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
-from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.middlewares.throttling import ThrottlingMiddleware
-from tgbot.misc.mongostorage import MongoStorage
 from tgbot.misc.set_bot_commands import set_default_commands
 from tgbot.services import broadcaster
 
@@ -23,9 +24,11 @@ async def on_startup(bot: Bot, admin_ids: list[int]):
     await broadcaster.broadcast(bot, admin_ids, "Бот запущен!")
 
 
-def register_global_middlewares(dp: Dispatcher, config):
-    dp.message.outer_middleware(ConfigMiddleware(config))
-    dp.callback_query.outer_middleware(ConfigMiddleware(config))
+async def on_shutdown():
+    print('Shutting down...')
+
+
+def register_global_middlewares(dp: Dispatcher):
     dp.message.middleware(ThrottlingMiddleware())
     dp.callback_query.middleware(CallbackAnswerMiddleware())
 
@@ -38,29 +41,24 @@ def register_logger():
 
 
 async def main():
-    from tgbot.config import config
-
     register_logger()
 
-    if config.tg_bot.use_mongo_storage:
-        storage = MongoStorage(uri='mongodb://127.0.0.1:27017/',
-                               database='FSM_states',
-                               collection_states='states')
-    else:
-        storage = MemoryStorage()
+    storage = MemoryStorage()
 
-    bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
+    bot = Bot(token=config.common.bot_token.get_secret_value(),
+              default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
-
     dp.include_routers(user_router,
                        admin_router)
 
-    register_global_middlewares(dp, config)
+    register_global_middlewares(dp=dp)
 
     await set_default_commands(bot)
 
-    await on_startup(bot, config.tg_bot.admin_ids)
-    await dp.start_polling(bot)
+    await on_startup(bot, config.common.admins)
+    dp.shutdown.register(on_shutdown)
+
+    await dp.start_polling(bot, config=config, allowed_updates=dp.resolve_used_update_types())
 
 
 if __name__ == '__main__':

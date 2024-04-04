@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-test_keyoard = ReplyKeyboardMarkup(keyboard=[
+test_keyboard = ReplyKeyboardMarkup(keyboard=[
     [
         KeyboardButton(text='Тест')
     ]

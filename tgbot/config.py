@@ -1,49 +1,24 @@
-from dataclasses import dataclass
-
-from environs import Env
-
-
-@dataclass
-class DbConfig:
-    host: str
-    name: str
-    port: int = 27017
+from pydantic import SecretStr, BaseModel
+from pydantic_settings import BaseSettings as _BaseSettings, SettingsConfigDict
 
 
-@dataclass
-class TgBot:
-    token: str
-    admin_ids: list[int]
-    use_mongo_storage: bool
+class BaseSettings(_BaseSettings):
+    model_config = SettingsConfigDict(extra="ignore", env_file=".env.dist", env_file_encoding="utf-8")
 
 
-@dataclass
-class Miscellaneous:
-    pass
+class CommonConfig(BaseSettings, env_prefix='COMMON_'):
+    bot_token: SecretStr
+    admins: list[int]
 
 
-@dataclass
-class Config:
-    tg_bot: TgBot
-    misc: Miscellaneous = None
-    db: DbConfig = None
+class Config(BaseModel):
+    common: CommonConfig
 
 
-def load_config(path: str = None) -> Config:
-    env = Env()
-    env.read_env(path)
-
+def create_app_config() -> Config:
     return Config(
-        tg_bot=TgBot(
-            token=env.str("BOT_TOKEN"),
-            admin_ids=env.list('ADMINS', subcast=int),
-            use_mongo_storage=env.bool("USE_MONGO_STORAGE"),
-        ),
-        db=DbConfig(
-            name=env.str('DB_NAME'),
-            host=env.str('DB_HOST'),
-            port=env.int('DB_PORT')
-        ))
+        common=CommonConfig(),
+    )
 
 
-config = load_config()
+config = create_app_config()
