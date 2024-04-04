@@ -7,10 +7,12 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from tgbot.config import config
 from tgbot.handlers.admin import admin_router
 from tgbot.handlers.user import user_router
+from tgbot.middlewares.database import DBSessionMiddleware
 from tgbot.middlewares.throttling import ThrottlingMiddleware
 from tgbot.misc.set_bot_commands import set_default_commands
 from tgbot.services import broadcaster
@@ -28,7 +30,9 @@ async def on_shutdown():
     print('Shutting down...')
 
 
-def register_global_middlewares(dp: Dispatcher):
+def register_global_middlewares(dp: Dispatcher, session: async_sessionmaker):
+    dp.update.outer_middleware(DBSessionMiddleware(session_pool=session))
+
     dp.message.middleware(ThrottlingMiddleware())
     dp.callback_query.middleware(CallbackAnswerMiddleware())
 
@@ -51,7 +55,9 @@ async def main():
     dp.include_routers(user_router,
                        admin_router)
 
-    register_global_middlewares(dp=dp)
+    engine = create_async_engine(config.db.build_dsn(), echo=config.db.echo)
+    session = async_sessionmaker(bind=engine, expire_on_commit=False)
+    register_global_middlewares(dp=dp, session=session)
 
     await set_default_commands(bot)
 

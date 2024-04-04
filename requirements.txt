@@ -9,6 +9,7 @@ betterlogging==1.0.0
 cachetools==5.3.3
 certifi==2024.2.2
 frozenlist==1.4.1
+greenlet==3.0.3
 idna==3.6
 magic-filter==1.0.12
 multidict==6.0.5
@@ -16,5 +17,6 @@ pydantic==2.5.3
 pydantic-settings==2.2.1
 pydantic_core==2.14.6
 python-dotenv==1.0.1
+SQLAlchemy==2.0.29
 typing_extensions==4.10.0
 yarl==1.9.4
