@@ -7,7 +7,7 @@ from cachetools import TTLCache
 
 
 class ThrottlingMiddleware(BaseMiddleware):
-    caches = {"default": TTLCache(maxsize=10_000, ttl=5)}
+    caches: dict[str, Any] = {"default": TTLCache(maxsize=10_000, ttl=5)}
 
     async def __call__(
         self,
