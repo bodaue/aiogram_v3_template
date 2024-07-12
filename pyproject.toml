@@ -16,6 +16,7 @@ types-cachetools = "^5.3.0.7"
 betterlogging = "^1.0.0"
 sqlalchemy = "^2.0.31"
 asyncpg = "^0.29.0"
+alembic = "^1.13.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.1"
