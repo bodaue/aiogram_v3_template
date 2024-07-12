@@ -1,8 +1,5 @@
 # Aiogram Bot Template (v3)
-
-## About
-
-A scalable template for building Telegram bots using aiogram 3.x and sqlalchemy 2.x
+#### A scalable template for building Telegram bots using aiogram 3.x and sqlalchemy 2.x
 
 ## Features
 
@@ -21,7 +18,7 @@ A scalable template for building Telegram bots using aiogram 3.x and sqlalchemy 
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/wakaree/aiogram_bot_template.git
+   git clone https://github.com/bodaue/aiogram_v3_template.git
 2. Install the dependencies:
    ```sh
    poetry install
