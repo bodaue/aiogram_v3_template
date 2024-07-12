@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from aiogram.types import User as TelegramUser
+from aiogram.types import User
 from sqlalchemy import BigInteger, String
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -17,5 +17,5 @@ class DBUser(Base, TimestampMixin):
     username: Mapped[str | None] = mapped_column(String(64))
 
     @classmethod
-    def from_aiogram(cls, user: TelegramUser) -> DBUser:
+    def from_aiogram(cls, user: User) -> DBUser:
         return cls(id=user.id, name=user.full_name, username=user.username)

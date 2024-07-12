@@ -7,13 +7,12 @@ from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 from redis.asyncio import Redis
 
-from ..config import Config
-from ..db.create_pool import create_pool
-from ..handlers.admins.admin import admin_router
-from ..handlers.users.user import user_router
+from tgbot.config import Config
+from tgbot.db.create_pool import create_pool
+from tgbot.handlers.admins.admin import admin_router
+from tgbot.handlers.users.user import user_router
 from tgbot.middlewares.inner import ThrottlingMiddleware
-from ..middlewares.outer import DBUserMiddleware
-from ..middlewares.outer.database import DBSessionMiddleware
+from tgbot.middlewares.outer import DBSessionMiddleware, DBUserMiddleware
 
 
 def _setup_outer_middlewares(dispatcher: Dispatcher, config: Config) -> None:

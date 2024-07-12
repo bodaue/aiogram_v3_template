@@ -7,7 +7,7 @@ User=root
 Group=admin
 Type=simple
 WorkingDirectory=/home/aiogram_v3_template
-ExecStart=poetry run python -m tgbot.__main__.py
+ExecStart=poetry run python -m tgbot.__main__
 Restart=always
 RestartSec=10
 

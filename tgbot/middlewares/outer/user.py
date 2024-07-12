@@ -1,4 +1,4 @@
-from typing import Callable, Awaitable, Dict, Any, Optional
+from typing import Callable, Awaitable, Dict, Any, cast
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User, Update
@@ -10,12 +10,13 @@ from tgbot.db.models import DBUser
 class DBUserMiddleware(BaseMiddleware):
     async def __call__(
         self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: Update,
+        handler: Callable[[Update, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        aiogram_user: Optional[User] = data.get("event_from_user")
-        session: AsyncSession = data.get("session")
+        event = cast(Update, event)
+        aiogram_user: User = data["event_from_user"]
+        session: AsyncSession = data["session"]
         user = await session.get(DBUser, aiogram_user.id)
 
         if user is None:

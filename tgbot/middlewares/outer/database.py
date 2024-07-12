@@ -2,11 +2,11 @@ from typing import Callable, Awaitable, Dict, Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
-from sqlalchemy.ext.asyncio import async_sessionmaker
+from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
 
 
 class DBSessionMiddleware(BaseMiddleware):
-    def __init__(self, session_pool: async_sessionmaker) -> None:
+    def __init__(self, session_pool: async_sessionmaker[AsyncSession]) -> None:
         super().__init__()
         self.session_pool = session_pool
 

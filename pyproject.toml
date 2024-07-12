@@ -27,7 +27,7 @@ aiosqlite = "^0.20.0"
 plugins = ["pydantic.mypy"]
 strict = true
 follow_imports = "normal"
-show_error_context = true
+show_error_context = false
 pretty = true
 ignore_missing_imports = false
 
