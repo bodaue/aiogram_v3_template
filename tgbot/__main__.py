@@ -1,6 +1,6 @@
 import asyncio
 
-from aiogram import Dispatcher
+from aiogram import Dispatcher, Bot
 
 from tgbot.config import create_config, Config
 from tgbot.factory.bot import create_bot
@@ -13,7 +13,7 @@ async def main() -> None:
     setup_logger()
     config: Config = create_config()
     dispatcher: Dispatcher = await create_dispatcher(config)
-    bot = await create_bot(config)
+    bot: Bot = await create_bot(config)
 
     return await run_polling(dispatcher=dispatcher, bot=bot)
 
