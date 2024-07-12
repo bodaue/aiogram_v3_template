@@ -6,9 +6,10 @@ After=multi-user.target
 User=root
 Group=admin
 Type=simple
-#WorkingDirectory=/opt/tgbot
-ExecStart=/root/aiogram_v3_template/venv/bin/python /root/aiogram_v3_template/bot.py
+WorkingDirectory=/home/aiogram_v3_template
+ExecStart=poetry run python -m tgbot.__main__.py
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
