@@ -62,5 +62,3 @@ venv.bak/
 .idea/
 .env
 cache/
-
-config-google.json
