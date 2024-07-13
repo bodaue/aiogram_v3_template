@@ -33,9 +33,6 @@ def _setup_routers(dispatcher: Dispatcher) -> None:
 
 
 async def create_dispatcher(config: Config) -> Dispatcher:
-    """
-    :return: Configured ``Dispatcher`` with installed middlewares and included routers
-    """
     storage: BaseStorage
     if config.redis.use_redis:
         storage = RedisStorage(
