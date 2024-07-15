@@ -10,9 +10,7 @@ from tgbot.db.models.base import Base, TimestampMixin
 class DBUser(Base, TimestampMixin):
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(
-        BigInteger, primary_key=True, autoincrement=False, unique=True
-    )
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     name: Mapped[str]
     username: Mapped[str | None] = mapped_column(String(64))
 

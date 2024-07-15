@@ -5,6 +5,7 @@ from aiogram.types import TelegramObject, User, Update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tgbot.db.models import DBUser
+from tgbot.db.repositories.user import UserRepository
 
 
 class DBUserMiddleware(BaseMiddleware):
@@ -17,12 +18,12 @@ class DBUserMiddleware(BaseMiddleware):
         event = cast(Update, event)
         aiogram_user: User = data["event_from_user"]
         session: AsyncSession = data["session"]
-        user = await session.get(DBUser, aiogram_user.id)
+        repo = UserRepository(session=session)
+        user = await repo.get(user_id=aiogram_user.id)
 
         if user is None:
             user = DBUser.from_aiogram(aiogram_user)
-            session.add(user)
-            await session.commit()
+            await repo.create(user)
 
         data["db_user"] = user
         return await handler(event, data)
