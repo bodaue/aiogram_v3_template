@@ -1,8 +1,8 @@
 import asyncio
 
-from aiogram import Dispatcher, Bot
+from aiogram import Bot, Dispatcher
 
-from tgbot.config import create_config, Config
+from tgbot.config import Config, create_config
 from tgbot.factory.bot import create_bot
 from tgbot.factory.dispatcher import create_dispatcher
 from tgbot.factory.runners import run_polling
