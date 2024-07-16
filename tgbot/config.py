@@ -38,7 +38,7 @@ class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
 
 
 class RedisConfig(BaseSettings, env_prefix="REDIS_"):
-    use_redis: bool = False
+    use_redis: bool = True
 
     host: str
     port: int
