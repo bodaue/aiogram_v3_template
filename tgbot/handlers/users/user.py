@@ -1,4 +1,4 @@
-from aiogram import Router, F
+from aiogram import F, Router
 from aiogram.enums import ChatType
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext

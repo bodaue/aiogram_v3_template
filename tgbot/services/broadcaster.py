@@ -6,7 +6,10 @@ from aiogram import Bot, exceptions
 
 
 async def send_message(
-    bot: Bot, user_id: int, text: str, disable_notification: bool = False,
+    bot: Bot,
+    user_id: int,
+    text: str,
+    disable_notification: bool = False,
 ) -> bool:
     try:
         await bot.send_message(user_id, text, disable_notification=disable_notification)

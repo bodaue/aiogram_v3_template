@@ -1,4 +1,4 @@
-from aiogram import Dispatcher, Bot
+from aiogram import Bot, Dispatcher
 
 from tgbot.config import Config
 from tgbot.misc.logger import logger

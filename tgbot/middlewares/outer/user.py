@@ -1,7 +1,7 @@
-from typing import Callable, Awaitable, Dict, Any, cast
+from typing import Any, Awaitable, Callable, Dict, cast
 
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject, User, Update
+from aiogram.types import TelegramObject, Update, User
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tgbot.db.models import DBUser
