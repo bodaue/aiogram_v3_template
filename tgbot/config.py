@@ -1,11 +1,14 @@
-from pydantic import SecretStr, BaseModel
-from pydantic_settings import BaseSettings as _BaseSettings, SettingsConfigDict
+from pydantic import BaseModel, SecretStr
+from pydantic_settings import BaseSettings as _BaseSettings
+from pydantic_settings import SettingsConfigDict
 from sqlalchemy import URL
 
 
 class BaseSettings(_BaseSettings):
     model_config = SettingsConfigDict(
-        extra="ignore", env_file=".env", env_file_encoding="utf-8"
+        extra="ignore",
+        env_file=".env",
+        env_file_encoding="utf-8",
     )
 
 
@@ -14,24 +17,23 @@ class CommonConfig(BaseSettings, env_prefix="COMMON_"):
     admins: list[int]
 
 
-class DbConfig(BaseSettings, env_prefix="DB_"):
-    driver: str
-    username: str
-    password: SecretStr
+class PostgresConfig(BaseSettings, env_prefix="POSTGRES_"):
     host: str
     port: int
-    name: str
+    user: str
+    password: SecretStr
+    db: str
 
-    enable_logging: bool
+    enable_logging: bool = False
 
     def build_dsn(self) -> str:
         return URL.create(
-            drivername=self.driver,
-            username=self.username,
+            drivername="postgresql+asyncpg",
+            username=self.user,
             password=self.password.get_secret_value(),
             host=self.host,
             port=self.port,
-            database=self.name,
+            database=self.db,
         ).render_as_string(hide_password=False)
 
 
@@ -46,8 +48,8 @@ class RedisConfig(BaseSettings, env_prefix="REDIS_"):
 class Config(BaseModel):
     common: CommonConfig
     redis: RedisConfig
-    db: DbConfig
+    postgres: PostgresConfig
 
 
 def create_config() -> Config:
-    return Config(common=CommonConfig(), redis=RedisConfig(), db=DbConfig())
+    return Config(common=CommonConfig(), redis=RedisConfig(), postgres=PostgresConfig())

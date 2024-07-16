@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from tgbot.config import DbConfig
+from tgbot.config import PostgresConfig
 from tgbot.db.models import Base
 
 # this is the Alembic Config object, which provides
@@ -24,7 +24,7 @@ target_metadata = Base.metadata
 
 
 def _get_postgres_dsn() -> str:
-    _config: DbConfig() = DbConfig()
+    _config: PostgresConfig() = PostgresConfig()
     return _config.build_dsn()
 
 
@@ -67,7 +67,6 @@ async def run_async_migrations() -> None:
     and associate a connection with the context.
 
     """
-
     connectable = async_engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
@@ -82,7 +81,6 @@ async def run_async_migrations() -> None:
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
-
     asyncio.run(run_async_migrations())
 
 

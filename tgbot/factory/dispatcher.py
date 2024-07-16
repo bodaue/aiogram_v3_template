@@ -17,7 +17,8 @@ from tgbot.middlewares.outer import DBSessionMiddleware, DBUserMiddleware
 
 def _setup_outer_middlewares(dispatcher: Dispatcher, config: Config) -> None:
     pool = dispatcher["session_pool"] = create_pool(
-        dsn=config.db.build_dsn(), enable_logging=config.db.enable_logging
+        dsn=config.postgres.build_dsn(),
+        enable_logging=config.postgres.enable_logging,
     )
     dispatcher.update.outer_middleware(DBSessionMiddleware(session_pool=pool))
     dispatcher.update.outer_middleware(DBUserMiddleware())
@@ -40,7 +41,7 @@ async def create_dispatcher(config: Config) -> Dispatcher:
                 host=config.redis.host,
                 port=config.redis.port,
                 password=config.redis.password,
-            )
+            ),
         )
     else:
         storage = MemoryStorage()
