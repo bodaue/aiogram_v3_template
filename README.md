@@ -37,6 +37,7 @@
     ```sh
    poetry run alembic upgrade head
 
-- Run the bot:
+- Configure .service file
+- Start systemctl
    ```sh
-   poetry run python -m tgbot
+   systemctl --now enable tgbot.service
