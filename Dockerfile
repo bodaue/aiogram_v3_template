@@ -9,10 +9,9 @@ RUN pip install poetry
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o /requirements.txt --without-hashes
 
+# Install requirements
 FROM base as common
 COPY --from=poetry /requirements.txt .
-# Create venv, add it to path and install requirements
-RUN python -m venv /venv
 RUN pip install -r requirements.txt
 
 COPY . /app/
