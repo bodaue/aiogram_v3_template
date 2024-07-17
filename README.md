@@ -1,4 +1,5 @@
 # Aiogram Bot Template (v3)
+
 #### A scalable template for building Telegram bots using aiogram 3.x and sqlalchemy 2.x
 
 ## Features
@@ -16,22 +17,26 @@
 
 ## Installation
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/bodaue/aiogram_v3_template.git
-2. Install the dependencies:
-   ```sh
-   poetry install
-3. Set up your environment variables (.env)
-
+### Via [Docker](https://www.docker.com/)
+- Set up environment variables (.env)
     - Rename .env.example to .env
     - Configure it
+- Run docker-compose
+  ```sh
+  docker-compose up -d
 
-4. Run database migrations
+### Via systemd
+- Set up environment variables (.env)
+    - Rename .env.example to .env
+    - Configure it
+- Install the dependencies:
+   ```sh
+   poetry install
+
+- Run database migrations
     ```sh
    poetry run alembic upgrade head
 
-5. Run the bot:
+- Run the bot:
    ```sh
    poetry run python -m tgbot
-   
