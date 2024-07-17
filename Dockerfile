@@ -1,6 +1,6 @@
 FROM python:3.12-slim as base
 ENV PYTHONPATH "${PYTHONPATH}:/app"
-ENV PATH "/app/scripts:${PATH}"
+ENV PATH "/app:${PATH}"
 WORKDIR /app
 
 # Create requirements.txt file
@@ -16,5 +16,5 @@ RUN python -m venv /venv
 RUN pip install -r requirements.txt
 
 COPY . /app/
-
-CMD ["python", "-m", "tgbot"]
+RUN chmod +x docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
