@@ -14,6 +14,7 @@
 
 - Python 3.12+
 - Poetry
+- Docker
 
 ## Installation
 
@@ -38,6 +39,6 @@
    poetry run alembic upgrade head
 
 - Configure .service file
-- Start systemctl
+- Start service
    ```sh
    systemctl --now enable tgbot.service
