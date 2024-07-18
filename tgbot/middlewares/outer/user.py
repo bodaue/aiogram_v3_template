@@ -24,6 +24,7 @@ class DBUserMiddleware(BaseMiddleware):
         if user is None:
             user = DBUser.from_aiogram(aiogram_user)
             await repo.create(user)
+            await session.commit()
 
         data["db_user"] = user
         return await handler(event, data)
