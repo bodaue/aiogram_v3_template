@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from typing import Iterable
+from collections.abc import Iterable
 
 from aiogram import Bot, exceptions
 

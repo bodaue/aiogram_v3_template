@@ -1,11 +1,14 @@
 from __future__ import annotations
 
-from aiogram.types import User
 from sqlalchemy import BigInteger, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from tgbot.db.models import Base
 from tgbot.db.models.mixins import TimestampMixin
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from aiogram.types import User
 
 
 class DBUser(TimestampMixin, Base):

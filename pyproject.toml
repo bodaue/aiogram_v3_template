@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["bodaue"]
 readme = "README.md"
-package-mode=false
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -34,7 +34,7 @@ select = [
     "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"
 ]
 ignore = [
-    "E501", "ANN101", "ANN102", "ANN201", "ANN202", "ANN401", "RET504", "RET503", "PLC0414",
+    "E501", "ANN101", "ANN102", "ANN201", "ANN202", "ANN401", "RET502", "RET503", "RET504", "PLC0414",
     "SIM108", "S113", "RUF001", "G004", "DTZ005",
 ]
 

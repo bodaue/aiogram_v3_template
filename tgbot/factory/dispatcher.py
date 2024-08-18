@@ -1,18 +1,21 @@
 from __future__ import annotations
 
 from aiogram import Dispatcher
-from aiogram.fsm.storage.base import BaseStorage
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 from redis.asyncio import Redis
 
-from tgbot.config import Config
 from tgbot.db.create_pool import create_pool
 from tgbot.handlers.admins.admin import admin_router
 from tgbot.handlers.users.user import user_router
 from tgbot.middlewares.inner import ThrottlingMiddleware
 from tgbot.middlewares.outer import DBSessionMiddleware, DBUserMiddleware
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from tgbot.config import Config
+    from aiogram.fsm.storage.base import BaseStorage
 
 
 def _setup_outer_middlewares(dispatcher: Dispatcher, config: Config) -> None:

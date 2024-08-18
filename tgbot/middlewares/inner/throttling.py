@@ -1,4 +1,5 @@
-from typing import Any, Awaitable, Callable, Dict, cast
+from collections.abc import Awaitable, Callable
+from typing import Any, cast, ClassVar
 
 from aiogram import BaseMiddleware
 from aiogram.dispatcher.flags import get_flag
@@ -7,13 +8,13 @@ from cachetools import TTLCache
 
 
 class ThrottlingMiddleware(BaseMiddleware):
-    caches: dict[str, Any] = {"default": TTLCache(maxsize=10_000, ttl=5)}
+    caches: ClassVar[dict[str, Any]] = {"default": TTLCache(maxsize=10_000, ttl=5)}
 
     async def __call__(
         self,
-        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+        handler: Callable[[Message, dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
-        data: Dict[str, Any],
+        data: dict[str, Any],
     ) -> Any:
         event = cast(Message, event)
         throttling_key = get_flag(data, "throttling_key")
@@ -21,6 +22,5 @@ class ThrottlingMiddleware(BaseMiddleware):
             if event.chat.id in self.caches[throttling_key]:
                 await event.answer("<b>Не пишите так часто!</b>")
                 return
-            else:
-                self.caches[throttling_key][event.chat.id] = None
+            self.caches[throttling_key][event.chat.id] = None
         return await handler(event, data)

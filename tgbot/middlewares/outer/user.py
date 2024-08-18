@@ -1,19 +1,22 @@
-from typing import Any, Awaitable, Callable, Dict, cast
+from typing import Any, cast, TYPE_CHECKING
+from collections.abc import Awaitable, Callable
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Update, User
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from tgbot.db.models import DBUser
 from tgbot.db.repositories.user import UserRepository
+
+if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class DBUserMiddleware(BaseMiddleware):
     async def __call__(
         self,
-        handler: Callable[[Update, Dict[str, Any]], Awaitable[Any]],
+        handler: Callable[[Update, dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
-        data: Dict[str, Any],
+        data: dict[str, Any],
     ) -> Any:
         event = cast(Update, event)
         aiogram_user: User = data["event_from_user"]
