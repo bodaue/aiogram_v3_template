@@ -2,12 +2,13 @@
 name = "Aiogram Template"
 version = "0.1.0"
 description = ""
-authors = ["Timur Kerimov <tim-online@mail.ru>"]
+authors = ["bodaue"]
 readme = "README.md"
+package-mode=false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-aiogram = "^3.10.0"
+aiogram = "^3.12.0"
 pydantic-settings = "^2.3.4"
 pydantic = "^2.8.2"
 cachetools = "^5.4.0"
@@ -21,7 +22,21 @@ alembic = "^1.13.2"
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.1"
 ruff = "^0.5.1"
-aiosqlite = "^0.20.0"
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "B", "UP", "SIM", "N", "YTT", "ANN", "ASYNC", "S", "A", "COM", "C4",
+    "DTZ", "T10", "EM", "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q",
+    "RSE", "RET", "SLF", "SLOT", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA",
+    "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"
+]
+ignore = [
+    "E501", "ANN101", "ANN102", "ANN201", "ANN202", "ANN401", "RET504", "RET503", "PLC0414",
+    "SIM108", "S113", "RUF001", "G004", "DTZ005",
+]
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
