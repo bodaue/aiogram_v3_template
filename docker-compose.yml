@@ -16,8 +16,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-    expose:
-      - "${POSTGRES_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   redis:
     image: redis:7-alpine
     restart: always
@@ -26,3 +27,6 @@ services:
       - "${REDIS_PORT}:${REDIS_PORT}"
     expose:
       - "${REDIS_PORT}"
+
+volumes:
+  postgres_data:
