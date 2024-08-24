@@ -16,6 +16,6 @@ admin_router.callback_query.filter(
 
 
 @admin_router.message(Command(commands="test"))
-async def process_test(message: Message, state: FSMContext):
+async def process_test(message: Message, state: FSMContext) -> None:
     logger.info(message)
     await state.clear()

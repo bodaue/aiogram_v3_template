@@ -12,6 +12,6 @@ user_router.callback_query.filter(F.message.chat.type == ChatType.PRIVATE)
 
 
 @user_router.message(CommandStart(), flags={"throttling_key": "default"})
-async def user_start(message: Message, state: FSMContext):
+async def user_start(message: Message, state: FSMContext) -> None:
     logger.info(message)
     await state.clear()
