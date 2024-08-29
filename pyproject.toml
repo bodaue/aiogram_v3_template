@@ -34,8 +34,7 @@ select = [
     "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"
 ]
 ignore = [
-    "E501", "ANN101", "ANN102", "ANN401", "RET502", "RET503", "RET504", "PLC0414",
-    "SIM108", "S113", "RUF001", "G004", "DTZ005",
+    "ANN101", "ANN102", "ANN401", "RET502", "S113", "RUF001", "G004", "DTZ005",
 ]
 
 [tool.mypy]

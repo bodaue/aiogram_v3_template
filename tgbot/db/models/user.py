@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from sqlalchemy import BigInteger, String
+from typing import TYPE_CHECKING
+
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from tgbot.db.models import Base
 from tgbot.db.models.mixins import TimestampMixin
-from typing import TYPE_CHECKING
+from tgbot.db.models.mixins.int_id_pk import IntIdPk
 
 if TYPE_CHECKING:
     from aiogram.types import User
 
 
-class DBUser(TimestampMixin, Base):
+class DBUser(IntIdPk, TimestampMixin, Base):
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     name: Mapped[str]
     username: Mapped[str | None] = mapped_column(String(64))
 

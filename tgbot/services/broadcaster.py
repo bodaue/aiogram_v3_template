@@ -17,7 +17,8 @@ async def send_message(
         logging.exception(f"Target [ID:{user_id}]: got TelegramForbiddenError")
     except exceptions.TelegramRetryAfter as e:
         logging.exception(
-            f"Target [ID:{user_id}]: Flood limit is exceeded. Sleep {e.retry_after} seconds.",
+            f"Target [ID:{user_id}]: Flood limit is exceeded."
+            f" Sleep {e.retry_after} seconds.",
         )
         await asyncio.sleep(e.retry_after)
         return await send_message(bot, user_id, text)  # Recursive call
