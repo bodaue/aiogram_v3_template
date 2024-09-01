@@ -33,7 +33,7 @@ select = [
     "RSE", "RET", "SLF", "SLOT", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA",
     "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF", "I"
 ]
-ignore = ["ANN101", "ANN102", "ANN401", "RET502", "RUF001", "RUF012", "DTZ005", "G004"]
+ignore = ["ANN101", "ANN102", "ANN401", "RET502", "RUF001", "RUF012", "DTZ005", "G004", "COM812", "ISC001"]
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
