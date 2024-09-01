@@ -1,12 +1,11 @@
 import asyncio
-
+from typing import TYPE_CHECKING
 
 from tgbot.config import Config, create_config
 from tgbot.factory.bot import create_bot
 from tgbot.factory.dispatcher import create_dispatcher
 from tgbot.factory.runners import run_polling
 from tgbot.misc.logger import logger, setup_logger
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from aiogram import Bot, Dispatcher

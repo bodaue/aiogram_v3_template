@@ -1,8 +1,8 @@
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from collections.abc import Sequence
-from typing import TypeVar, Generic, Any
+from typing import Any, Generic, TypeVar
 
-from sqlalchemy import select, delete
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tgbot.db.models import Base

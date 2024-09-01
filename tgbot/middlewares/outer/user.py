@@ -1,5 +1,5 @@
-from typing import Any, cast, TYPE_CHECKING
 from collections.abc import Awaitable, Callable
+from typing import TYPE_CHECKING, Any, cast
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Update, User

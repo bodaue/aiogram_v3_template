@@ -1,5 +1,5 @@
 from collections.abc import Awaitable, Callable
-from typing import Any, cast, ClassVar
+from typing import Any, ClassVar, cast
 
 from aiogram import BaseMiddleware
 from aiogram.dispatcher.flags import get_flag
