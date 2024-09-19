@@ -28,12 +28,9 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = [
-    "E", "F", "B", "UP", "SIM", "N", "YTT", "ANN", "ASYNC", "S", "A", "COM", "C", "W",
-    "DTZ", "T10", "EM", "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q",
-    "RSE", "RET", "SLF", "SLOT", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA",
-    "PLC", "PLE", "PLW", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF", "I"
+    "ALL"
 ]
-ignore = ["ANN101", "ANN102", "ANN401", "RET502", "RUF001", "RUF012", "DTZ005", "G004", "COM812", "ISC001"]
+ignore = ["RUF001", "RUF012", "COM812", "ISC001", "D", "ANN101", "ANN102", "ANN401", "FBT"]
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
