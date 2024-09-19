@@ -22,9 +22,9 @@
 - Set up environment variables (.env)
     - Rename .env.example to .env
     - Configure it
-- Run docker-compose
+- Build and run docker container
   ```sh
-  docker-compose up -d
+  docker-compose up --build -d
 
 ### Via systemd
 - Set up environment variables (.env)
