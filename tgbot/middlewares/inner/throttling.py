@@ -1,7 +1,7 @@
 from collections.abc import Awaitable, Callable
 from typing import Any, ClassVar, cast
 
-from aiogram import BaseMiddleware
+from aiogram import BaseMiddleware, html
 from aiogram.dispatcher.flags import get_flag
 from aiogram.types import Message, TelegramObject
 from cachetools import TTLCache
@@ -20,7 +20,7 @@ class ThrottlingMiddleware(BaseMiddleware):
         throttling_key = get_flag(data, "throttling_key")
         if throttling_key is not None and throttling_key in self.caches:
             if event.chat.id in self.caches[throttling_key]:
-                await event.answer("<b>Не пишите так часто!</b>")
-                return
+                await event.answer(html.bold("Не пишите так часто!"))
+                return None
             self.caches[throttling_key][event.chat.id] = None
         return await handler(event, data)

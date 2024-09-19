@@ -5,10 +5,11 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Update, User
 
 from tgbot.db.models import DBUser
-from tgbot.db.repositories.repository import Repository
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
+
+    from tgbot.db.repositories.repository import Repository
 
 
 class DBUserMiddleware(BaseMiddleware):
